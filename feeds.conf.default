@@ -1,4 +1,7 @@
-src-git packages https://git.openwrt.org/feed/packages.git;openwrt-23.05
-src-git luci https://git.openwrt.org/project/luci.git;openwrt-23.05
-src-git routing https://git.openwrt.org/feed/routing.git;openwrt-23.05
-src-git telephony https://git.openwrt.org/feed/telephony.git;openwrt-23.05
+src-git packages https://github.com/openwrt/packages.git;openwrt-23.05
+src-git luci https://github.com/openwrt/luci.git;openwrt-23.05
+src-git routing https://github.com/openwrt/routing.git;openwrt-23.05
+src-git telephony https://github.com/openwrt/telephony.git;openwrt-23.05
+src-git 3Ginfo https://github.com/4IceG/luci-app-3ginfo-lite.git
+src-git Modem https://github.com/4IceG/luci-app-modemband.git
+src-git SMS https://github.com/4IceG/luci-app-sms-tool.git
