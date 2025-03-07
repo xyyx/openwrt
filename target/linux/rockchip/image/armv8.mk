@@ -78,3 +78,12 @@ define Device/xunlong_orangepi-r1-plus-lts
   DEVICE_PACKAGES := kmod-usb-net-rtl8152
 endef
 TARGET_DEVICES += xunlong_orangepi-r1-plus-lts
+
+define Device/firefly_firefly
+  DEVICE_VENDOR := Firefly
+  DEVICE_MODEL := RK3399
+  SOC := rk3399
+  IMAGE/sysupgrade.img.gz := boot-common | boot-script | pine64-img | gzip | append-metadata
+  DEVICE_PACKAGES := kmod-brcmfmac brcmfmac-nvram-4356-sdio cypress-firmware-4356-sdio
+endef
+TARGET_DEVICES += firefly_firefly

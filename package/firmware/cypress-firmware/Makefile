@@ -260,6 +260,9 @@ define Package/cypress-firmware-4356-sdio/install
 		../cypress/cyfmac4356-sdio.bin \
 		$(1)/lib/firmware/brcm/brcmfmac4356-sdio.bin
 	$(LN) \
+		../cypress/cyfmac4356-sdio.bin \
+		$(1)/lib/firmware/brcm/brcmfmac4356-sdio.firefly,firefly-rk3399.bin
+	$(LN) \
 		../cypress/cyfmac4356-sdio.clm_blob \
 		$(1)/lib/firmware/brcm/brcmfmac4356-sdio.clm_blob
 endef
