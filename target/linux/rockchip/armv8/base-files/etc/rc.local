@@ -1,0 +1,8 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+
+Turn on 3g and pcie ngff slots
+echo 1 > /sys/class/gpio/3g_power/value
+echo 1 > /sys/class/gpio/pcie_power/value
+
+exit 0
