@@ -79,11 +79,13 @@ define Device/xunlong_orangepi-r1-plus-lts
 endef
 TARGET_DEVICES += xunlong_orangepi-r1-plus-lts
 
-define Device/firefly_firefly
+define Device/firefly_firefly-rk3399
   DEVICE_VENDOR := Firefly
   DEVICE_MODEL := RK3399
   SOC := rk3399
+  DEVICE_DTS := rockchip/rk3399-firefly
+  UBOOT_DEVICE_NAME := firefly-rk3399
   IMAGE/sysupgrade.img.gz := boot-common | boot-script | pine64-img | gzip | append-metadata
   DEVICE_PACKAGES := kmod-brcmfmac brcmfmac-nvram-4356-sdio cypress-firmware-4356-sdio
 endef
-TARGET_DEVICES += firefly_firefly
+TARGET_DEVICES += firefly_firefly-rk3399

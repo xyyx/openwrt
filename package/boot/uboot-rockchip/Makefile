@@ -99,7 +99,7 @@ define U-Boot/firefly-rk3399
   $(U-Boot/rk3399/Default)
   NAME:=FireFly
   BUILD_DEVICES:= \
-    firefly_firefly
+    firefly_firefly-rk3399
 endef
 
 UBOOT_TARGETS := \
