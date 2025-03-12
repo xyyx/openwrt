@@ -1,11 +1,11 @@
-From ca3c4a267cae5c8706dd49c1279ba12923169ce8 Mon Sep 17 00:00:00 2001
+From a8494ccce5593868ea89f164a234a1f8adfaab1d Mon Sep 17 00:00:00 2001
 From: xyyx <xyyx@mail.ru>
 Date: Fri, 7 Mar 2025 19:23:47 +0300
 Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
 
 ---
- .../boot/dts/rockchip/rk3399-firefly.dts      | 284 +++++++++---------
- 1 file changed, 141 insertions(+), 143 deletions(-)
+ .../boot/dts/rockchip/rk3399-firefly.dts      | 290 +++++++++---------
+ 1 file changed, 147 insertions(+), 143 deletions(-)
 
 --- a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
@@ -22,7 +22,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  	};
  
  	chosen {
-@@ -80,13 +80,30 @@
+@@ -80,13 +80,36 @@
  		regulator-max-microvolt = <12000000>;
  	};
  
@@ -41,6 +41,12 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
 +			gpio-export,output = <0>;
 +			gpios = <&gpio1 RK_PC1 GPIO_ACTIVE_HIGH>;
 +		};
++
++		zigbee_reset {
++			gpio-export,name = "zigbee_reset";
++			gpio-export,output = <0>;
++			gpios = <&gpio1 RK_PB2 GPIO_ACTIVE_HIGH>;
++		};
 +	};
 +	
  	gpio-keys {
@@ -54,7 +60,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  			debounce-interval = <100>;
  			gpios = <&gpio0 RK_PA5 GPIO_ACTIVE_LOW>;
  			label = "GPIO Key Power";
-@@ -176,27 +193,27 @@
+@@ -176,27 +199,27 @@
  		};
  	};
  
@@ -94,7 +100,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  	};
  
  	vcc3v3_sys: vcc3v3-sys {
-@@ -221,15 +238,13 @@
+@@ -221,15 +244,13 @@
  		vin-supply = <&vcc_sys>;
  	};
  
@@ -115,7 +121,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  	};
  
  	vcc_sys: vcc-sys {
-@@ -241,17 +256,6 @@
+@@ -241,17 +262,6 @@
  		regulator-max-microvolt = <5000000>;
  		vin-supply = <&dc_12v>;
  	};
@@ -133,7 +139,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  };
  
  &cpu_l0 {
-@@ -299,18 +303,35 @@
+@@ -299,18 +309,35 @@
  };
  
  &hdmi {
@@ -169,7 +175,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  	rk808: pmic@1b {
  		compatible = "rockchip,rk808";
  		reg = <0x1b>;
-@@ -323,18 +344,18 @@
+@@ -323,18 +350,18 @@
  		rockchip,system-power-controller;
  		wakeup-source;
  
@@ -198,7 +204,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  
  		regulators {
  			vdd_center: DCDC_REG1 {
-@@ -382,8 +403,8 @@
+@@ -382,8 +409,8 @@
  				};
  			};
  
@@ -209,7 +215,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  				regulator-always-on;
  				regulator-boot-on;
  				regulator-min-microvolt = <1800000>;
-@@ -393,12 +414,12 @@
+@@ -393,12 +420,12 @@
  				};
  			};
  
@@ -226,7 +232,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  				regulator-state-mem {
  					regulator-off-in-suspend;
  				};
-@@ -451,12 +472,12 @@
+@@ -451,12 +478,12 @@
  				};
  			};
  
@@ -243,7 +249,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  				regulator-state-mem {
  					regulator-off-in-suspend;
  				};
-@@ -497,14 +518,16 @@
+@@ -497,14 +524,16 @@
  	vdd_cpu_b: regulator@40 {
  		compatible = "silergy,syr827";
  		reg = <0x40>;
@@ -262,7 +268,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  
  		regulator-state-mem {
  			regulator-off-in-suspend;
-@@ -515,13 +538,15 @@
+@@ -515,13 +544,15 @@
  		compatible = "silergy,syr828";
  		reg = <0x41>;
  		fcs,suspend-voltage-selector = <1>;
@@ -279,7 +285,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  
  		regulator-state-mem {
  			regulator-off-in-suspend;
-@@ -557,58 +582,15 @@
+@@ -557,58 +588,15 @@
  	i2c-scl-falling-time-ns = <20>;
  	status = "okay";
  
@@ -341,7 +347,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  	};
  };
  
-@@ -630,11 +612,11 @@
+@@ -630,11 +618,11 @@
  
  &io_domains {
  	status = "okay";
@@ -356,7 +362,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  };
  
  &pcie_phy {
-@@ -645,7 +627,9 @@
+@@ -645,7 +633,9 @@
  	ep-gpios = <&gpio4 RK_PD1 GPIO_ACTIVE_HIGH>;
  	num-lanes = <4>;
  	pinctrl-names = "default";
@@ -367,7 +373,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  	status = "okay";
  };
  
-@@ -655,6 +639,20 @@
+@@ -655,6 +645,20 @@
  };
  
  &pinctrl {
@@ -388,7 +394,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  	buttons {
  		pwrbtn: pwrbtn {
  			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>;
-@@ -690,13 +688,10 @@
+@@ -690,13 +694,10 @@
  	};
  
  	pcie {
@@ -405,7 +411,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  	};
  
  	pmic {
-@@ -725,6 +720,12 @@
+@@ -725,6 +726,12 @@
  		};
  	};
  
@@ -418,7 +424,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  	usb-typec {
  		vcc5v0_typec_en: vcc5v0_typec_en {
  			rockchip,pins = <1 RK_PA3 RK_FUNC_GPIO &pcfg_pull_up>;
-@@ -753,28 +754,20 @@
+@@ -753,28 +760,20 @@
  };
  
  &saradc {
@@ -448,7 +454,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  	status = "okay";
  
  	brcmf: wifi@1 {
-@@ -791,20 +784,20 @@
+@@ -791,20 +790,20 @@
  
  &sdmmc {
  	bus-width = <4>;
@@ -472,7 +478,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  	non-removable;
  	status = "okay";
  };
-@@ -824,14 +817,6 @@
+@@ -824,14 +823,6 @@
  	status = "okay";
  };
  
@@ -487,7 +493,7 @@ Subject: [PATCH] arm64-Fix-and-update-rk3399-firefly-dts
  &tcphy1 {
  	status = "okay";
  };
-@@ -855,37 +840,50 @@
+@@ -855,37 +846,50 @@
  		phy-supply = <&vcc5v0_host>;
  		status = "okay";
  	};
