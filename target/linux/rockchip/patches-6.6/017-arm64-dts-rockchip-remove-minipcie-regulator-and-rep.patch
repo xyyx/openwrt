@@ -1,0 +1,60 @@
+From 45a8f1d7782041506b0ed49bad30b25ae85e9de3 Mon Sep 17 00:00:00 2001
+From: xyyx <xyyx@mail.ru>
+Date: Tue, 8 Apr 2025 13:57:01 +0300
+Subject: [PATCH] 
+ arm64-dts-rockchip-remove-minipcie-regulator-and-replace-with-gpio-export-on-Banana-Pi-R2-Pro
+
+To fix bad modems we need to have ability to dissble modem power
+---
+ .../boot/dts/rockchip/rk3568-bpi-r2-pro.dts   | 26 ++++++++-----------
+ 1 file changed, 11 insertions(+), 15 deletions(-)
+
+--- a/arch/arm64/boot/dts/rockchip/rk3568-bpi-r2-pro.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-bpi-r2-pro.dts
+@@ -26,6 +26,17 @@
+ 		stdout-path = "serial2:1500000n8";
+ 	};
+ 
++	gpio_export {
++		compatible = "gpio-export";
++		#size-cells = <0>;
++	
++		4g_power {
++			gpio-export,name = "4g_power";
++			gpio-export,output = <0>;
++			gpios = <&gpio0 RK_PC6 GPIO_ACTIVE_HIGH>;
++		};
++	};
++
+ 	leds {
+ 		compatible = "gpio-leds";
+ 		pinctrl-names = "default";
+@@ -126,20 +137,6 @@
+ 	};
+ 
+ 	/* actually fed by vcc3v3_sys, dependent on pi6c clock generator */
+-	vcc3v3_minipcie: vcc3v3-minipcie-regulator {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vcc3v3_minipcie";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		enable-active-high;
+-		gpio = <&gpio0 RK_PC6 GPIO_ACTIVE_HIGH>;
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&minipcie_enable_h>;
+-		startup-delay-us = <50000>;
+-		vin-supply = <&vcc3v3_pi6c_05>;
+-	};
+-
+-	/* actually fed by vcc3v3_sys, dependent on pi6c clock generator */
+ 	vcc3v3_ngff: vcc3v3-ngff-regulator {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc3v3_ngff";
+@@ -600,7 +597,6 @@
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&minipcie_reset_h>;
+ 	reset-gpios = <&gpio2 RK_PD6 GPIO_ACTIVE_HIGH>;
+-	vpcie3v3-supply = <&vcc3v3_minipcie>;
+ 	status = "okay";
+ };
+ 
