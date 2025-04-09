@@ -1,0 +1,7 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+
+# Turn on 4g slot
+echo 1 > /sys/class/gpio/4g_power/value
+
+exit 0
